@@ -10,6 +10,7 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
+        int nameLengthMinLimit = 2;
 
         public CarManager(ICarDal carDal)
         {
@@ -18,7 +19,10 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
-            _carDal.Add(car);
+            if (validate(car))
+            {
+                _carDal.Add(car);
+            }
         }
 
         public void Delete(Car car)
@@ -33,12 +37,41 @@ namespace Business.Concrete
 
         public Car GetById(int id)
         {
-            return _carDal.GetByID(id);
+            return _carDal.Get(c => c.Id == id);
+        }
+
+        public List<Car> GetCarsByBrandId(int brandId)
+        {
+            return _carDal.GetAll(c => c.BrandId == brandId);
+        }
+
+        public List<Car> GetCarsByColorId(int colorId)
+        {
+            return _carDal.GetAll(c => c.ColorId == colorId);
         }
 
         public void Update(Car car)
         {
-            _carDal.Update(car);
+            if(validate(car))
+            {
+                _carDal.Update(car);
+            }                
+        }
+
+        private bool validate(Car car)
+        {
+            bool isValid = true;
+
+            if(car.Name.Length < nameLengthMinLimit)
+            {
+                isValid = false;
+            }
+            if (car.DailyPrice <= 0)
+            {
+                isValid = false;
+            }
+
+            return isValid;
         }
     }
 }
