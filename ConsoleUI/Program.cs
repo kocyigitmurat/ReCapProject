@@ -53,6 +53,11 @@ namespace ConsoleUI
             List<Car> allData = carManager.GetAll();
             consoleWrite(allData);
 
+            AddCarTest(carManager);
+        }
+
+        private static void AddCarTest(CarManager carManager)
+        {
             Car car1 = new Car();
             car1.Id = 5; // ID generator olmadığı için çalıştırmadan önce +1 yap.
             car1.BrandId = 3;
