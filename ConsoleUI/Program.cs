@@ -50,8 +50,8 @@ namespace ConsoleUI
 
             CarManager carManager = new CarManager(new EfCarDal());
 
-            List<Car> allData = carManager.GetAll();
-            consoleWrite(allData);
+            var allData = carManager.GetAll();
+            consoleWrite(allData.Data);
 
             AddCarTest(carManager);
         }
@@ -68,8 +68,8 @@ namespace ConsoleUI
             car1.DailyPrice = 350;
 
             carManager.Add(car1);
-            List<Car> allDataNew = carManager.GetAll();
-            consoleWrite(allDataNew);
+            var allDataNew = carManager.GetAll();
+            consoleWrite(allDataNew.Data);
         }
 
         static void consoleWrite(List<Car> cars)
